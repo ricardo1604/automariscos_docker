@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  # Servicio Web (Tu aplicación PHP)
+  web:
+    build: .
+    ports:
+      - "8080:80"  # Accederás en localhost:8080
+    volumes:
+      - .:/var/www/html  # Hot-reload: los cambios en tu Fedora se ven al instante
+      - ./php-conf/sessions.ini:/usr/local/etc/php/conf.d/zz-sessions.ini
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASS=root
+      - DB_NAME=automariscos
+
+  # Servicio Base de Datos (MySQL)
+  db:
+    image: mysql:5.7  # Usamos 5.7 por compatibilidad legacy (8.0 a veces rompe queries viejas)
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: automariscos
+    volumes:
+      - db_data:/var/lib/mysql
+      # Esto carga tu dump automáticamente al iniciar por primera vez:
+      - ./db-init:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+
+volumes:
+  db_data:
