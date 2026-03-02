@@ -1420,7 +1420,7 @@ class crud
         $conexion = $obj->conexionMySQL();
 
         $sql = "SELECT a.producto_id AS PRODUCTO_ID, a.nombre_prod AS NOMBRE, b.ingrediente_id AS INGREDIENTE_ID , d.ingrediente AS INGREDIENTE,
-        (SELECT z.cantidad_elegible FROM ingredientes Z WHERE z.ingrediente_id = b.ingrediente_id ) CANTIDAD_ELEGIBLE
+        (SELECT z.cantidad_elegible FROM ingredientes z WHERE z.ingrediente_id = b.ingrediente_id ) CANTIDAD_ELEGIBLE
         FROM productos a
         INNER JOIN ingredientes_asignados b ON a.producto_id = b.producto_id
         INNER JOIN ingredientes_sub c ON b.ingrediente_id = c.id_ingrediente
@@ -1429,6 +1429,10 @@ class crud
         ORDER BY d.ingrediente ASC";
 
         $resultado = mysqli_query($conexion, $sql);
+        if ($resultado === false) {
+            die("SQL ERROR: " . mysqli_error($conexion) . " | SQL: " . $sql);
+        }
+
         return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
         mysqli_close($conexion);
     }
