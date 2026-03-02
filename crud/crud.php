@@ -1421,10 +1421,10 @@ class crud
 
         $sql = "SELECT a.producto_id AS PRODUCTO_ID, a.nombre_prod AS NOMBRE, b.ingrediente_id AS INGREDIENTE_ID , d.ingrediente AS INGREDIENTE,
         (SELECT z.cantidad_elegible FROM ingredientes Z WHERE z.ingrediente_id = b.ingrediente_id ) CANTIDAD_ELEGIBLE
-        FROM productos A
-        INNER JOIN ingredientes_asignados B ON a.producto_id = b.producto_id
-        INNER JOIN ingredientes_sub C ON b.ingrediente_id = c.id_ingrediente
-        INNER JOIN ingredientes D ON c.id_sub = d.ingrediente_id
+        FROM productos a
+        INNER JOIN ingredientes_asignados b ON a.producto_id = b.producto_id
+        INNER JOIN ingredientes_sub c ON b.ingrediente_id = c.id_ingrediente
+        INNER JOIN ingredientes d ON c.id_sub = d.ingrediente_id
         WHERE a.producto_id = '" . $id. "'
         ORDER BY d.ingrediente ASC";
 
