@@ -1799,10 +1799,10 @@ class crud
         $obj = new conectar();
         $conexion = $obj->conexionMySQL();
 
-        $sql = "SELECT a.subproducto_id AS SUBPRODUCTO_ID, B.nombre_prod AS SUBPRODUCTO,b.categoria AS CATEGORIA, ROUND(a.cantidad,3) AS CANTIDAD, b.descripcion AS DESCRIPCION, b.urlimg AS URLIMG
-        FROM subproductos_asignados A, productos B
-        WHERE A.PRODUCTO_ID = '" . $producto_id . "'
-        AND A.SUBPRODUCTO_ID = B.PRODUCTO_ID;";
+        $sql = "SELECT a.subproducto_id AS SUBPRODUCTO_ID, b.nombre_prod AS SUBPRODUCTO,b.categoria AS CATEGORIA, ROUND(a.cantidad,3) AS CANTIDAD, b.descripcion AS DESCRIPCION, b.urlimg AS URLIMG
+        FROM subproductos_asignados a, productos b
+        WHERE a.PRODUCTO_ID = '" . $producto_id . "'
+        AND a.SUBPRODUCTO_ID = b.PRODUCTO_ID;";
         $resultado = mysqli_query($conexion, $sql);
         return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
         mysqli_close($conexion);
