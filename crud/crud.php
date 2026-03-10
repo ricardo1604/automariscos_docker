@@ -1786,9 +1786,9 @@ class crud
         $obj = new conectar();
         $conexion = $obj->conexionMySQL();
 
-        $sql = "SELECT A.INGREDIENTE_ID AS INGREDIENTE_ID,B.INGREDIENTE AS INGREDIENTE,round(A.CANTIDAD,3) AS CANTIDAD,B.UNIDAD AS UNIDAD, round((A.CANTIDAD*b.costo),3) as COSTOT FROM ingredientes_asignados A, ingredientes B
-        WHERE A.PRODUCTO_ID = '" . $producto_id . "'
-        AND A.INGREDIENTE_ID = B.INGREDIENTE_ID;";
+        $sql = "SELECT a.INGREDIENTE_ID AS INGREDIENTE_ID,b.INGREDIENTE AS INGREDIENTE,round(a.CANTIDAD,3) AS CANTIDAD,b.UNIDAD AS UNIDAD, round((a.CANTIDAD*b.costo),3) as COSTOT FROM ingredientes_asignados a, ingredientes b
+        WHERE a.PRODUCTO_ID = '" . $producto_id . "'
+        AND a.INGREDIENTE_ID = b.INGREDIENTE_ID;";
         $resultado = mysqli_query($conexion, $sql);
         return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
         mysqli_close($conexion);
